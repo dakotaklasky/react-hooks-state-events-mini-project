@@ -1,17 +1,24 @@
 import React from "react";
 import Task from "./Task"
 
-function TaskList({currentTaskList, setCurrentTaskList}) {
+function TaskList({tasks, setCurrentTaskList}) {
 
-  function handleDelete(taskObj){
-    const filteredTaskList = currentTaskList.filter(task => task.text !== taskObj.text)
+  function handleDelete(text){
+    const filteredTaskList = tasks.filter(task => task.text !== text)
     setCurrentTaskList(filteredTaskList)  
   }
 
-  const taskArray = currentTaskList.map(task =>
-    {
-    return <Task key={task.text} taskObj={task} onDelete={handleDelete} />
-  })
+  let taskArray
+
+  if(tasks !== undefined){
+    taskArray = tasks.map(task =>
+      {
+      return <Task key={task.text} text={task.text} category={task.category} onDelete={handleDelete} />
+    })
+  }
+  else{
+    taskArray = []
+  }
 
   return (
     <div className="tasks">

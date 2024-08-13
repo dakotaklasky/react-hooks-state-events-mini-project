@@ -1,37 +1,23 @@
 import React,{useState} from "react";
 
-function CategoryFilter({tasks, categories, currentTaskList, setCurrentTaskList}) {
+function CategoryFilter({categories,selectedCategory, setSelectedCategory}) {
 
-  const [selectedCategory,setSelectedCategory] = useState("All")
-
-  function handleButtonFilter(category){
-
-    setSelectedCategory(category)
-    const categoryFilterList = tasks.filter(task => 
-      {
-        if(category === "All"){
-        return true
-      }
-      else{
-        return task.category === category
-      }
-      
-    })
-    console.log(categoryFilterList)
-    setCurrentTaskList(categoryFilterList)
+  function handleButtonFilter(event){
+    console.log(event.target.value)
+    setSelectedCategory(event.target.value)
   }
 
   const categoryButtons = categories.map(category => {
     return (
       <button
         key={category} 
-        onClick={() => handleButtonFilter(category)}
+        onClick={handleButtonFilter}
         className = {selectedCategory === category ? "selected" : ""}
+        value = {category}
         >
         {category}
       </button>
     )
-
   })
 
   return (
